@@ -1,0 +1,22 @@
+/**
+ * Note: The returned array must be malloced, assume caller calls free().
+ */
+int* twoSum(int* nums, int numsSize, int target) {
+    int i;
+    int j;
+    static int val[2];
+    
+    for (i = 0; i < numsSize; i++)
+    {
+        for (j = i + 1; j < numsSize; j++)
+        {
+            if (target == nums[i] + nums[j])
+            {
+                val[0] = i;
+                val[1] = j;
+                break;
+            }
+        }
+    }
+    return val;
+}

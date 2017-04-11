@@ -22,6 +22,8 @@ public:
             ptr_p = ptr_c;
             ptr_c = head;            
         }
+        head->next = ptr_p;
+        
         return head;
     }
 };

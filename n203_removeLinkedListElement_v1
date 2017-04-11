@@ -9,14 +9,10 @@
 class Solution {
 public:
     ListNode* removeElements(ListNode* head, int val) {
-        if(head == 0) {
-            return head;
-        }
-        
         ListNode* ptr_p = 0;
         ListNode* ptr_c = head;
         
-        while((ptr_p == 0) && (ptr_c != 0)) {
+        while(!ptr_p && ptr_c) {
             if(ptr_c->val == val) {
                 ListNode* temp = ptr_c;
                 head = head->next;
@@ -29,7 +25,7 @@ public:
             }
         }
     
-        while(ptr_c != 0) {
+        while(ptr_c) {
             if(ptr_c->val == val) {
                 ListNode* temp = ptr_c;
                 ptr_p->next = ptr_c->next;

@@ -9,28 +9,27 @@
 class Solution {
 public:
     ListNode* removeElements(ListNode* head, int val) {
-    if(head == 0) {
-        return head;
-    }
-    ListNode* fakeHead = new ListNode(-1);
-    fakeHead->next = head;
-    
-    ListNode* ptr_p = fakeHead;
-    ListNode* ptr_c = head;
-    
-    while(ptr_c != 0) {
-        if(ptr_c->val == val) {
-            ListNode* temp = ptr_c;
-            ptr_p->next = ptr_c->next;
-            ptr_c = ptr_c->next;
-            delete(temp);
+        if(head == 0) {
+            return head;
         }
-        else {
-            ptr_p = ptr_p->next;
-            ptr_c = ptr_c->next;            
+        ListNode* fakeHead = new ListNode(-1);
+        fakeHead->next = head;
+        
+        ListNode* ptr_p = fakeHead;
+        ListNode* ptr_c = head;
+        
+        while(ptr_c != 0) {
+            if(ptr_c->val == val) {
+                ListNode* temp = ptr_c;
+                ptr_p->next = ptr_c->next;
+                ptr_c = ptr_c->next;
+                delete(temp);
+            }
+            else {
+                ptr_p = ptr_p->next;
+                ptr_c = ptr_c->next;            
+            }
         }
+        return fakeHead->next;
     }
-    return fakeHead->next;
-    
-    }    
 };

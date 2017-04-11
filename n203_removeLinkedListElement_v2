@@ -9,16 +9,13 @@
 class Solution {
 public:
     ListNode* removeElements(ListNode* head, int val) {
-        if(head == 0) {
-            return head;
-        }
         ListNode* fakeHead = new ListNode(-1);
         fakeHead->next = head;
         
         ListNode* ptr_p = fakeHead;
         ListNode* ptr_c = head;
         
-        while(ptr_c != 0) {
+        while(ptr_c) {
             if(ptr_c->val == val) {
                 ListNode* temp = ptr_c;
                 ptr_p->next = ptr_c->next;

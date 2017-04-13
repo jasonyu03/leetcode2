@@ -1,0 +1,84 @@
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode(int x) : val(x), next(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    bool isPalindrome(ListNode* head) {
+        if(head == 0) {
+            return 1;
+        }
+        
+        if(head->next == 0) {
+            return 1;
+        }
+        
+        if(head->next->next == 0) {
+            if(head->val == head->next->val) {
+                return 1;
+            }
+            else {
+                return 0;
+            }
+        }
+        
+        if(head->next->next->next == 0) {
+            if(head->val == head->next->next->val) {
+                return 1;
+            }
+            else {
+                return 0;
+            }
+        }
+        
+        ListNode* ptr_s = head;
+        ListNode* ptr_f = head->next;
+
+        while(ptr_f && ptr_f->next) {
+            ptr_s = ptr_s->next;
+            ptr_f = ptr_f->next->next;
+        }
+        
+        ListNode* middleNode = 0; 
+
+        if(ptr_f == 0) {
+            middleNode = ptr_s; // odd case
+        }
+        else {
+            middleNode = new ListNode(-1);
+            middleNode->next = ptr_s->next;
+            ptr_s->next = middleNode;
+        }
+
+        ListNode* ptr_h2    = middleNode->next;
+        ListNode* ptr_c     = middleNode->next;
+        ListNode* ptr_p     = middleNode;
+            
+        while(ptr_h2->next) {
+            ptr_h2 = ptr_h2->next;
+            ptr_c->next = ptr_p;
+            ptr_p = ptr_c;
+            ptr_c = ptr_h2;            
+        }
+        ptr_h2->next = ptr_p;
+            
+        ListNode* ptr_com1  = head;
+        ListNode* ptr_com2  = ptr_h2;
+        
+        while(ptr_com1 != middleNode) {
+            if(ptr_com1->val != ptr_com2->val) {
+                return 0;
+            }
+            else {
+                ptr_com1 = ptr_com1->next;
+                ptr_com2 = ptr_com2->next;    
+            }
+        }
+        
+        return 1;
+    }
+};

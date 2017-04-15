@@ -1,0 +1,64 @@
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode(int x) : val(x), next(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode* deleteDuplicates(ListNode* head) {
+        if(!head) {
+            return head;
+        }
+        if(!head->next) {
+            return head;
+        }
+        
+        ListNode* fakeHead = new ListNode(-1);
+        fakeHead->next = head;
+        
+        if(!head->next->next) {
+            if(head->val == head->next->val) {
+                fakeHead->next = 0;
+                return fakeHead->next;
+            }
+        }
+        
+        ListNode* ptr_x = fakeHead;
+        ListNode* ptr_p = head;
+        ListNode* ptr_c = head->next;
+        
+        int flag = 0;
+        
+        while(ptr_c) {
+            if(ptr_p->val == ptr_c->val) {
+                ListNode* temp = ptr_c;
+                ptr_p->next = ptr_c->next;
+                ptr_c = ptr_c->next;
+                flag = 1;
+                delete(temp);
+            }
+            else if (ptr_p->val != ptr_c->val && flag) {
+                ListNode* temp = ptr_c;
+                ptr_p->val = ptr_c->val;
+                ptr_p->next = ptr_c->next;
+                ptr_c = ptr_c->next;
+                flag = 0;
+                delete(temp);
+            }
+            else {
+                ptr_x = ptr_x->next;
+                ptr_p = ptr_p->next;
+                ptr_c = ptr_c->next;
+            }
+        }
+        if(flag) {
+            ptr_x->next = 0;
+            delete(ptr_p);            
+        }
+        
+        return fakeHead->next;
+    }
+};

@@ -1,0 +1,66 @@
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode(int x) : val(x), next(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode* insertionSortList(ListNode* head) {
+        if(head == 0) {
+            return head;
+        }
+        if(head->next == 0) {
+            return head;
+        }
+        
+        ListNode* fakeHead = new ListNode(-1);
+        
+        ListNode* ptr_old = head;
+        ListNode* ptr_cur = fakeHead;
+        
+        ptr_cur->next = new ListNode(ptr_old->val);
+        ptr_cur = ptr_cur->next;
+        ListNode* ptr_pre = fakeHead;
+        ptr_old = ptr_old->next;
+        
+        while(ptr_old) {
+            ptr_pre = fakeHead;
+            ptr_cur = fakeHead->next;
+            
+            if(ptr_old->val <= ptr_cur->val) {
+                ptr_pre->next = new ListNode(ptr_old->val);
+                ptr_pre->next->next = ptr_cur;
+            }
+            else if (ptr_cur->next == 0) {
+                ptr_cur->next = new ListNode(ptr_old->val);
+            }
+            else {
+                ptr_pre = ptr_pre->next;
+                ptr_cur = ptr_cur->next;  
+       
+                while(ptr_cur) {
+                    if((ptr_old->val > ptr_pre->val) && (ptr_old->val <= ptr_cur->val)) {
+                        ptr_pre->next = new ListNode(ptr_old->val);
+                        ptr_pre->next->next = ptr_cur;
+                        break;
+                    }
+                    else if(!ptr_cur->next) {
+                        ptr_cur->next = new ListNode(ptr_old->val);
+                        break;
+                    }
+                    else {
+                        ptr_pre = ptr_pre->next;
+                        ptr_cur = ptr_cur->next;                    
+                    }
+                }
+            }
+            
+            ptr_old = ptr_old->next;
+        }    
+
+        return fakeHead->next;
+    }
+};

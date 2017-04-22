@@ -1,0 +1,39 @@
+class Solution {
+public:
+    bool isPerfectSquare(int num) {
+        if(num == 0) {
+            return 0;
+        }
+        
+        if(num == 1) {
+            return 1;
+        }
+        
+        int low = 1;
+        int high = num;
+        int mid;
+        
+        while(low < high) {
+            mid = low + (high - low)/2;
+            
+            if(mid < num/mid) {
+                low = mid + 1;
+            }
+            else {
+                high = mid;
+            }
+        }
+        
+        if((mid == num/mid) && (num%mid == 0)) {
+            return 1;
+        }
+        
+        mid = mid + 1;
+        if((mid == num/mid) && (num%mid == 0)) {
+            return 1;
+        }
+        else {
+            return 0;
+        }
+    }
+};
